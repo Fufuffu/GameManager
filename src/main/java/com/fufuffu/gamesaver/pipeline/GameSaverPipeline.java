@@ -1,20 +1,14 @@
 package com.fufuffu.gamesaver.pipeline;
 
-public class GameSaverPipeline {
+import com.fufuffu.gamesaver.entities.ResolvedBasePath;
+import com.fufuffu.gamesaver.entities.game.GameListRelation;
+import com.fufuffu.gamesaver.entities.game.config.GameConfigFiles;
 
-    public GameSaverPipeline() {
+import java.io.IOException;
+import java.util.List;
 
-    }
+public interface GameSaverPipeline {
+    final String GAME_SAVER_BASE_FOLDER = "GameSaverData";
 
-    public void run() {
-        // Get current application data (fetch general config.json)
-        // If backup:
-        //      Get list of games to save
-        //      Foreach:
-        //          Fetch files, save them into game directory
-        // If restore:
-        //      Get list of games to restore
-        //      Foreach:
-        //          Read everything from folder, save according to config, each file in it's path
-    }
+    void run(GameListRelation game, GameConfigFiles configFiles, List<ResolvedBasePath> resolvedPaths) throws IOException;
 }

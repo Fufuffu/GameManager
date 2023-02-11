@@ -1,44 +1,25 @@
 package com.fufuffu.gamesaver.repository.resource.fs;
 
-import com.fufuffu.gamesaver.repository.resource.FileResource;
-
 import java.io.*;
+import java.nio.file.Paths;
 
-public class FileSystemResourceImpl implements FileResource {
+public class FileSystemResourceImpl {
 
-    @Override
-    public boolean createFile(String path, String content) {
-        try {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, false))) {
-                writer.write(content);
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public FileSystemResourceImpl() {
     }
 
-    @Override
+    public boolean createFile(String fileName, String parentFolder, String content) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(parentFolder, fileName).toString(), false))) {
+            writer.write(content);
+        }
+        return true;
+    }
+
     public boolean deleteFile(String path) {
         File file = new File(path);
         return file.delete();
     }
 
-    @Override
-    public boolean appendFile(String path, String newContent) {
-        try {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
-                writer.write(newContent);
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
     public String getFileContent(String path) {
         try {
             StringBuilder result = new StringBuilder();
@@ -54,9 +35,12 @@ public class FileSystemResourceImpl implements FileResource {
         }
     }
 
-    @Override
-    public boolean makeDirectory(String path) {
-        File file = new File(path);
-        return file.mkdirs();
+    public String makeDirectoryIfNotExists(String dirName, String parent) throws IOException {
+        File file = new File(Paths.get(parent, dirName).toString());
+        if (file.mkdirs()) {
+            return dirName;
+        }
+
+        throw new IOException("Could not create a folder: " + dirName);
     }
 }

@@ -1,0 +1,19 @@
+{
+    "games": [
+      {
+        "nameToShow": "CS:GO",
+        "nameInFileSystem": "CounterStrikeGlobalOffensive",
+        "fileWithConfig": "counterstrikeglobaloffensive.json"
+      },
+      {
+        "nameToShow": "Apex",
+        "nameInFileSystem": "ApexLegends",
+        "fileWithConfig": "apexlegends.json"
+      },
+      {
+        "nameToShow": "Shatterline",
+        "nameInFileSystem": "Shatterline",
+        "fileWithConfig": "shatterline.json"
+      }
+    ]
+  }
