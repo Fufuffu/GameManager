@@ -25,7 +25,7 @@ import java.util.List;
 
 import java.io.ByteArrayOutputStream;
 
-public class GoogleDriveFileResourceImpl {
+public class GoogleDriveFileResourceImpl implements GoogleDriveFileResource {
     private final String APPLICATION_NAME = "Game config saver";
 
     private final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
@@ -47,12 +47,15 @@ public class GoogleDriveFileResourceImpl {
     }
 
     public String createFile(String fileName, String parentFolder, java.io.File fileContent) throws IOException {
-        Drive.Files.List request = service.files().list().setQ(
-                "'" + parentFolder + "' in parents and trashed=false and name='" + fileName + "'");
-        FileList files = request.execute();
+        String foundFileId = null;
+        try {
+            foundFileId = getFileIdIfExists(parentFolder, fileName);
+        } catch (IOException e) {
+            // Do nothing, expected if not found
+        }
 
-        if (!files.getFiles().isEmpty()) {
-            deleteFile(files.getFiles().get(0).getId());
+        if (foundFileId != null) {
+            deleteFile(foundFileId);
         }
 
         // Create the dile

@@ -4,7 +4,7 @@ import com.fufuffu.gamesaver.entities.ResolvedBasePath;
 import com.fufuffu.gamesaver.entities.game.GameListRelation;
 import com.fufuffu.gamesaver.entities.game.config.ConfigFilePath;
 import com.fufuffu.gamesaver.entities.game.config.GameConfigFiles;
-import com.fufuffu.gamesaver.repository.resource.drive.GoogleDriveFileResourceImpl;
+import com.fufuffu.gamesaver.repository.resource.drive.GoogleDriveFileResource;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import java.util.List;
 
 public class GameSaverBackupPipeline implements GameSaverPipeline {
 
-    private final GoogleDriveFileResourceImpl driveFileResource;
+    private final GoogleDriveFileResource driveFileResource;
 
-    public GameSaverBackupPipeline(GoogleDriveFileResourceImpl driveFileResource) {
+    public GameSaverBackupPipeline(GoogleDriveFileResource driveFileResource) {
         this.driveFileResource = driveFileResource;
     }
 

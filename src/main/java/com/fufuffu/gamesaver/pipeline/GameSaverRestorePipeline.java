@@ -4,7 +4,7 @@ import com.fufuffu.gamesaver.entities.ResolvedBasePath;
 import com.fufuffu.gamesaver.entities.game.GameListRelation;
 import com.fufuffu.gamesaver.entities.game.config.ConfigFilePath;
 import com.fufuffu.gamesaver.entities.game.config.GameConfigFiles;
-import com.fufuffu.gamesaver.repository.resource.drive.GoogleDriveFileResourceImpl;
+import com.fufuffu.gamesaver.repository.resource.drive.GoogleDriveFileResource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -16,9 +16,9 @@ import java.util.List;
 
 public class GameSaverRestorePipeline implements GameSaverPipeline {
 
-    private final GoogleDriveFileResourceImpl driveFileResource;
+    private final GoogleDriveFileResource driveFileResource;
 
-    public GameSaverRestorePipeline(GoogleDriveFileResourceImpl driveFileResource) {
+    public GameSaverRestorePipeline(GoogleDriveFileResource driveFileResource) {
         this.driveFileResource = driveFileResource;
     }
 
@@ -50,6 +50,7 @@ public class GameSaverRestorePipeline implements GameSaverPipeline {
             try (OutputStream outputFile = new FileOutputStream(fileToSave.toString())) {
                 outputStream.writeTo(outputFile);
             }
+            System.out.printf("Restored file with name: %s , fileIdInDrive: %s %n", configFile.getRelativeConfigPath(), fileId);
         }
     }
 }
