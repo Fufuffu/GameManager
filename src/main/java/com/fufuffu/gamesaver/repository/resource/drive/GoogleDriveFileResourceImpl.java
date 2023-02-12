@@ -26,21 +26,18 @@ import java.util.List;
 import java.io.ByteArrayOutputStream;
 
 public class GoogleDriveFileResourceImpl implements GoogleDriveFileResource {
-    private final String APPLICATION_NAME = "Game config saver";
 
     private final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
-    private final String TOKENS_DIRECTORY_PATH = "tokens";
-
     private final List<String> SCOPES =
             Collections.singletonList(DriveScopes.DRIVE_FILE);
-    private final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     private final Drive service;
 
     public GoogleDriveFileResourceImpl() throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        String APPLICATION_NAME = "Game config saver";
         service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
@@ -143,6 +140,7 @@ public class GoogleDriveFileResourceImpl implements GoogleDriveFileResource {
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT)
             throws IOException {
         // Load client secrets.
+        String CREDENTIALS_FILE_PATH = "/credentials.json";
         InputStream in = GoogleDriveTest.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
@@ -151,6 +149,7 @@ public class GoogleDriveFileResourceImpl implements GoogleDriveFileResource {
                 GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
+        String TOKENS_DIRECTORY_PATH = "tokens";
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
