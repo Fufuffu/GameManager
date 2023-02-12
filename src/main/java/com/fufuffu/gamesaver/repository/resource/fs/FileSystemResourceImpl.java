@@ -1,8 +1,6 @@
 package com.fufuffu.gamesaver.repository.resource.fs;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 
 public class FileSystemResourceImpl implements FileSystemResource {
@@ -23,6 +21,13 @@ public class FileSystemResourceImpl implements FileSystemResource {
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
+        }
+    }
+
+    @Override
+    public void writeByteStream(ByteArrayOutputStream outputStream, Path path) throws IOException {
+        try (OutputStream outputFile = new FileOutputStream(path.toString())) {
+            outputStream.writeTo(outputFile);
         }
     }
 }

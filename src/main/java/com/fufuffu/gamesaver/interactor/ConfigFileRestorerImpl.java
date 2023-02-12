@@ -8,9 +8,7 @@ import com.fufuffu.gamesaver.repository.DriveConfigRepository;
 import com.fufuffu.gamesaver.repository.SupportedGameRepository;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -58,9 +56,7 @@ public class ConfigFileRestorerImpl implements ConfigFileRestorer {
             }
 
             ByteArrayOutputStream outputStream = driveConfigRepository.getFileContent(fileId, game.getNameInFileSystem());
-            try (OutputStream outputFile = new FileOutputStream(fileToSave.toString())) {
-                outputStream.writeTo(outputFile);
-            }
+            supportedGameRepository.writeConfigFile(outputStream, fileToSave);
             System.out.printf("Restored file with name: %s , fileIdInDrive: %s %n", configFile.getRelativeConfigPath(), fileId);
         }
     }

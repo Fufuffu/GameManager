@@ -6,6 +6,7 @@ import com.fufuffu.gamesaver.entities.game.config.GameConfigFiles;
 import com.fufuffu.gamesaver.entities.json.JsonUtil;
 import com.fufuffu.gamesaver.repository.resource.fs.FileSystemResource;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,6 +42,11 @@ public class SupportedGameRepositoryImpl implements SupportedGameRepository {
         String gameConfigFileString = fileSystemResource.readFile(configJsonPath);
 
         return convertToJson(gameConfigFileString, GameConfigFiles.class);
+    }
+
+    @Override
+    public void writeConfigFile(ByteArrayOutputStream fileStream, Path filePath) throws IOException {
+        fileSystemResource.writeByteStream(fileStream, filePath);
     }
 
     private <T> T convertToJson(String path, Class<T> cls) {
