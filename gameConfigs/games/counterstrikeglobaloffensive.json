@@ -1,0 +1,7 @@
+{
+    "files": [
+        { "basePath": "SteamUserdata", "relativeConfigPath": "730/local/cfg/autoexec.cfg" },
+        { "basePath": "SteamUserdata", "relativeConfigPath": "730/local/cfg/config.cfg" },
+        { "basePath": "SteamUserdata", "relativeConfigPath": "730/local/cfg/video.txt" }
+    ]
+}
